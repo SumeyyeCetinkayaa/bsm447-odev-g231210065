@@ -10,6 +10,7 @@ import {
   Button,
 } from "react-native";
 
+import { COLORS } from "../theme/colors";
 import CharacterCard from "../components/CharacterCard";
 import { fetchCharacters, API_URL } from "../services/api";
 
@@ -89,22 +90,37 @@ export default function ListScreen({ navigation }) {
   );
 
   if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-        <Text>Karakterler yükleniyor...</Text>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.center}>
+      <ActivityIndicator
+        size="large"
+        color={COLORS.primary}
+      />
+      <Text style={styles.loadingText}>
+        Karakterler yükleniyor...
+      </Text>
+    </View>
+  );
+}
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+  <Text style={styles.subtitle}>RICK & MORTY</Text>
+
+  <Text style={styles.title}>Dead Archive</Text>
+
+  <Text style={styles.description}>
+    Ölmüş karakterler arşivi
+  </Text>
+</View>
       <TextInput
-        style={styles.search}
-        placeholder="Karakter ara..."
-        value={search}
-        onChangeText={setSearch}
-      />
+  style={styles.search}
+  placeholder="Karakter ara..."
+  placeholderTextColor={COLORS.textSecondary}
+  value={search}
+  onChangeText={setSearch}
+/>
 
       {error !== "" && (
         <View style={styles.error}>
@@ -142,28 +158,69 @@ export default function ListScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f1f5f9",
-    padding: 12,
+    backgroundColor: COLORS.background,
+    padding: 16,
   },
+
+  header: {
+    marginBottom: 20,
+    marginTop: 8,
+  },
+
+  subtitle: {
+    color: COLORS.primary,
+    fontSize: 12,
+    fontWeight: "bold",
+    letterSpacing: 3,
+    marginBottom: 6,
+  },
+
+  title: {
+    color: COLORS.text,
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+
+  description: {
+    color: COLORS.textSecondary,
+    fontSize: 14,
+    marginTop: 6,
+  },
+
   search: {
-    backgroundColor: "#ffffff",
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 12,
+    backgroundColor: COLORS.surface,
+    color: COLORS.text,
+    padding: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    marginBottom: 16,
     fontSize: 16,
   },
+
   center: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: COLORS.background,
   },
+
   error: {
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: "#fee2e2",
+    padding: 12,
+    marginBottom: 12,
+    backgroundColor: "#FEE2E2",
+    borderRadius: 10,
   },
+
   empty: {
     textAlign: "center",
     marginTop: 30,
+    color: COLORS.textSecondary,
+    fontSize: 15,
+  },
+
+  loadingText: {
+    color: COLORS.textSecondary,
+    marginTop: 12,
   },
 });
